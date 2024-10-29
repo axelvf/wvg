@@ -24,8 +24,8 @@
         <input type="text" id="license" disabled/>
         <input type="button" id="licenseButton" value="Select" /><br>
 
-        <label for="scheme">Challenge scheme</label>
-        <select id="scheme">
+        <label for="schemeSelect">Challenge scheme</label>
+        <select id="schemeSelect">
           <option value="Amazon">Amazon</option>
           <option value="Allente">Allente</option>
           <option value="CanalPlusVOD">CanalPlus (VOD)</option>
@@ -48,6 +48,7 @@
           <option value="Youku">Youku</option>
           <option value="YouTube">YouTube</option>
         </select>
+        <input type="button" id="editSchemeButton" value="Edit" />
 
         <input type="button" id="guess" value="Guess!"><br>
 
@@ -65,6 +66,9 @@
       <input type="text" id="chooserSearch" placeholder="Search">
       <ul id="items"></ul>
     </div>
+    <div id="editSchemeContainer" class="hidden">
+      <textarea id="schemeCode" rows="10" cols="50"></textarea>
+      <input type="button" id="editSchemeOK" value="OK" />
     </div>
     <div id="updateNotice" class="hidden">
       Version =VER= update available!
@@ -73,5 +77,6 @@
   </body>
   <script src="./main.js" type="module"></script>
   <script src="./drawList.js"></script>
+  <script src="./editScheme.js"></script>
   <script src="./updateNotice.js"></script>
 </html>

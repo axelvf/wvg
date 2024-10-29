@@ -18,9 +18,9 @@ async function guess(){
     pyodide.globals.set("licUrl", requests[userInputs['license']]['url']);
     pyodide.globals.set("licHeaders", requests[userInputs['license']]['headers']);
     pyodide.globals.set("licBody", requests[userInputs['license']]['body']);
-    let pre=await fetch('/python/pre.py').then(res=>res.text())
-    let after=await fetch('/python/after.py').then(res=>res.text())
-    let scheme=await fetch(`/python/schemes/${document.getElementById("scheme").value}.py`).then(res=>res.text())
+    let pre = await fetch('/python/pre.py').then(res=>res.text())
+    let after = await fetch('/python/after.py').then(res=>res.text())
+    let scheme = document.getElementById("schemeCode").value
 
     //Get result
     let result = await pyodide.runPythonAsync([pre, scheme, after].join("\n"));
@@ -52,6 +52,10 @@ window.corsFetch = (u, m, h, b) => {
 }
 
 async function autoSelect(){
+    userInputs["license"]=0;
+    document.getElementById("license").value=requests[0]['url'];
+    document.getElementById('pssh').value=psshs[0];
+    
     let selectRules = await fetch("/selectRules.conf").then((r)=>r.text());
     //Remove blank lines, comment-outs, and trailing spaces at the end of lines
     selectRules = selectRules.replace(/\n^\s*$|\s*\/\/.*|\s*$/gm, "");
@@ -59,19 +63,14 @@ async function autoSelect(){
     for(var item of selectRules){
         let search = requests.map(r => r['url']).findIndex(e => e.includes(item[0]));
         if(search>=0){
-            if(item[1]) document.getElementById("scheme").value = item[1];
+            if(item[1]) document.getElementById("schemeSelect").value = item[1];
             userInputs["license"]=search;
             document.getElementById("license").value=requests[search]['url'];
             break;
         }
     }
-    if(psshs.length==1){
-        document.getElementById('pssh').value=psshs[0];
-    }
-    if(requests.length==1){
-        userInputs["license"]=0;
-        document.getElementById("license").value=requests[search]['url'];
-    }
+
+    document.getElementById("schemeSelect").dispatchEvent(new Event("input"))
 }
 
 if (clearkey) {
