@@ -78,7 +78,6 @@ if (clearkey) {
     document.getElementById('ckHome').style.display = 'grid';
     document.getElementById('ckResult').value = clearkey;
     document.getElementById('ckResult').addEventListener("click", copyResult);
-    document.getElementById('toggleHistory').style.display = 'none'
 } else if (psshs.length) {
     document.getElementById('noEME').style.display = 'none';
     document.getElementById('home').style.display = 'grid';

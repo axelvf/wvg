@@ -9,10 +9,9 @@ function showHistory(){
 function saveHistory(){
     chrome.storage.local.get(null, (data => {
         let blob = new Blob([JSON.stringify(data, null, "\t")], {type: "text/plain"});
-        let blobLink = URL.createObjectURL(blob);
         let a = document.createElement('a');
         a.download = 'wvgHistory.json';
-        a.href = blobLink
+        a.href = URL.createObjectURL(blob);
         a.click();
     }));
 }
