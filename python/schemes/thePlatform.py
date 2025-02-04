@@ -1,4 +1,6 @@
 payload = loadBody("json")
-payload["getWidevineLicense"]["widevineChallenge"] = getChallenge('b64')
-licence = await corsFetch(licUrl, "POST", licHeaders, payload, "json")
-licence = licence["getWidevineLicenseResponse"]["license"]
+b64challenge = base64.b64encode(challenge).decode()
+payload["getWidevineLicense"]["widevineChallenge"]=b64challenge
+res = await corsFetch(licUrl, "POST", licHeaders, payload, "json")
+
+licence = res["getWidevineLicenseResponse"]["license"]

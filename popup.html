@@ -1,0 +1,109 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Widevine L3 Guessor 2024</title>
+    <link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@200&display=swap" rel="stylesheet">
+    <script src="pyodide/pyodide.js"></script>
+  </head>
+  <body>
+    <div id="toggleHistory">
+      <button id="historyButton">Show History</button><br><br>
+    </div>
+    <div id="noEME">
+      Widevine content hasn't detected in this page.<br>
+      Open widevine-protected website and try again!
+    </div>
+    <div id="home" class="hidden">
+      <form id="wvForm">
+        <fieldset class="fieldset-flex">
+            <legend>PSSH Details</legend>
+            <label for="pssh">PSSH</label>
+            <input type="text" id="pssh" disabled/>
+            <input type="button" id="psshButton" value="Select" /><br>
+        </fieldset>
+
+        <fieldset class="fieldset-flex">
+            <legend>License URL Details</legend>
+            <label for="license">License URL</label>
+            <input type="text" id="license" disabled/>
+            <input type="button" id="licenseButton" value="Select" /><br>
+        </fieldset>
+
+        <fieldset class="fieldset-flex">
+            <legend>URL MPD Details</legend>
+            <label for="last_mpd">URL MPD</label>
+            <input type="text" id="last_mpd" disabled />
+            <input class="styled" type="button" id="MPDButton" value="Copy URL" /><br>
+        </fieldset>
+		
+		<div class="flex-row">	
+        <fieldset class="fieldset-flex">
+            <legend>Challenge Scheme Details</legend>
+            <label for="scheme">Challenge scheme</label>
+            <select id="scheme">
+              <option value="CommonWV">CommonWV</option>
+              <option value="Amazon">Amazon</option>
+              <option value="CanalPlus">Canal+</option>
+              <option value="CanalPlus2">Canal+(Alt)</option>
+              <option value="Comcast">Comcast Xfinity</option>
+              <option value="DRMToday">DRMToday</option>
+              <option value="GlobalTV">GlobalTV</option>
+              <option value="moTV">moTV</option>
+              <option value="NosTV">NosTV</option>
+              <option value="oqee">Oqee</option>
+              <option value="Polsat">Polsat</option>
+              <option value="RedBee">Red Bee Media</option>
+              <option value="thePlatform">thePlatform</option>
+              <option value="VdoCipher">VdoCipher</option>
+              <option value="VUDRM">VUDRM</option>
+              <option value="Vodafone">Vodafone</option>
+              <option value="Youku">Youku</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Get Keys</legend>
+            <input type="button" id="guess" value="Parse Keys!" />
+        </fieldset>
+		</div>
+
+		<fieldset>
+			<legend>Key(s) Results</legend>
+			<label id="result-label" for="result">Key(s):</label><br>
+			<textarea id="result" rows="10" cols="50"></textarea><br>
+			<input class="styled" type="button" id="resultCopyButton" value="Copy Key(s)" /><br>
+		</fieldset>
+      </form>
+    </div>
+    <div id="ckHome" class="hidden">
+      <h3>Clearkey detected</h3>
+      <label for="ckResult">Result:</label><br>
+      <textarea id="ckResult" rows="10" cols="50"></textarea>
+    </div>
+    <div id="selectPssh" class="hidden">
+      <input type="text" id="psshSearch" placeholder="Search">
+      <ul id="psshList"></ul>
+    </div>
+    <div id="selectRequest" class="hidden">
+      <input type="text" id="requestSearch" placeholder="Search">
+      <ul id="requestList"></ul>
+    </div>
+    <div id="history" class="hidden">
+      <button id="backHistory">🔙 Back</button>
+      <button id="saveHistory">💾 Save History</button>
+      <button id="clearHistory">❌ Clear History</button>
+      <div id="histDisp"></div>
+    </div>
+    <div id="updateNotice" class="hidden">
+      Version =VER= update available!
+      <a href="https://github.com/FoxRefire/wvg/archive/=HASH=.zip">Download</a>
+    </div>
+  </body>
+  <script src="popup.js" type="module"></script>
+  <script src="popup_drawList.js"></script>
+  <script src="jsonview.js"></script>
+  <script src="popup_showHistory.js"></script>
+  <script src="popup_updateNotice.js"></script>
+</html>

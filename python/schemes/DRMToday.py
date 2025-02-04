@@ -1,2 +1,4 @@
-licence = await corsFetch(licUrl, "POST", licHeaders, getChallenge('blob'), "json")
-licence = licence['license']
+res = await corsFetch(licUrl, "POST", licHeaders, challenge, "json")
+
+licence = res['license']
+
