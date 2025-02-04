@@ -14,33 +14,33 @@ def blobsToDevice(cID, pKey):
 async def loadCdm():
     # Looking for device.wvd
     try:
-        wvd = await (await pyfetch("/device.wvd")).bytes()
+        wvd = await (await pyfetch("device.wvd")).bytes()
         return Cdm.from_device(Device.loads(wvd))
     except:
         pass
 
     # Looking for device_client_id_blob + device_private_key
     try:
-        cID=await (await pyfetch("/device_client_id_blob")).bytes()
-        pKey=await (await pyfetch("/device_private_key")).bytes()
+        cID=await (await pyfetch("device_client_id_blob")).bytes()
+        pKey=await (await pyfetch("device_private_key")).bytes()
         return Cdm.from_device(blobsToDevice(cID, pKey))
     except:
         pass
 
     # Looking for client_id.bin + private_key.pem
     try:
-        cID=await (await pyfetch("/client_id.bin")).bytes()
-        pKey=await (await pyfetch("/private_key.pem")).bytes()
+        cID=await (await pyfetch("client_id.bin")).bytes()
+        pKey=await (await pyfetch("private_key.pem")).bytes()
         return Cdm.from_device(blobsToDevice(cID, pKey))
     except:
         pass
 
     # Looking for remote.json
     try:
-        remote_conf=await (await pyfetch("/remote.json")).json()
+        remote_conf=await (await pyfetch("remote.json")).json()
         return RemoteCdm(**remote_conf)
     except Exception as e:
-        js.document.getElementById('result').value=f"No CDM key pair found! \n\n https://github.com/FoxRefire/wvg/wiki/Getting-started#2-put-cdm-key-pair-files"
+        js.document.getElementById('result').value="n0suchd3v1c3f113:r3adth3fuck1ngma2ua1\n\n[MPD?]\nhttps://github.com/FoxRefire/wvg/wiki/Getting-started#2-put-cdm-files"
         raise Exception(e)
 
 # Define corsFetch API for requesting server that require origin header
@@ -75,22 +75,6 @@ def loadBody(loadAs: str):
 
     return licBody
 
-# Define a function to get challenge if needed to set a service cert
-def getChallenge(getAs, *cert):
-    global session_id
-    global pssh
-
-    if bool(cert):
-        cdm.set_service_certificate(session_id, cert[0])
-
-    challenge = cdm.get_license_challenge(session_id, pssh)
-
-    match getAs:
-        case "blob": pass
-        case "b64": challenge = base64.b64encode(challenge).decode()
-        case "list": challenge = list(challenge)
-    return challenge
-
 # prepare pssh
 pssh = PSSH(pssh)
 
@@ -100,7 +84,9 @@ cdm = await loadCdm()
 # open cdm session
 session_id = cdm.open()
 
-# load headers
+# get license challenge
+challenge = cdm.get_license_challenge(session_id, pssh)
+
 licHeaders=json.loads(licHeaders)
 
 js.chrome.extension.getBackgroundPage().isBlock=False

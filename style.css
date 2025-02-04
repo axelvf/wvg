@@ -1,0 +1,111 @@
+html, body {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    margin: 0; /* Reset default margin */
+    padding: 0; /* Reset default padding */
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background: linear-gradient(45deg, #0d364c, #062535, #02141e);
+    grid-template-rows: auto 1fr auto;
+}
+
+body, input, button, select, legend {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200; /* Light */
+    font-size: 11px;
+}
+
+#noEME, #updateNotice, #updateNotice a, #wvForm label, #psshList, #requestList, #ckHome h3, #ckHome label {
+    color: white;
+    justify-self: center;
+}
+
+#updateNotice a {
+    color: aqua;
+}
+
+.fieldset-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+fieldset {
+    border: 2px solid #4CAF50;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.fieldset-flex label, fieldset label {
+    margin-right: 10px;
+}
+
+.fieldset-flex input[type="text"],
+.fieldset-flex select {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.fieldset-flex input[type="button"], 
+fieldset input[type="button"] {
+    width: 150px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.fieldset-flex input[type="button"]:hover,
+fieldset input[type="button"]:hover {
+    background-color: #45a049;
+}
+
+#result-label {
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    resize: none;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between; /* Ensures space between fieldsets */
+    align-items: flex-start; /* Aligns items at the top */
+    margin-bottom: 20px; /* Space below the row */
+}
+
+.flex-row fieldset {
+    flex: 1; /* Ensures each fieldset takes equal width */
+    margin-right: 10px; /* Right margin for the first fieldset */
+}
+
+.flex-row fieldset:last-child {
+    margin-right: 0; /* Removes margin from the last fieldset to prevent extra space */
+}
+
+
+.hidden {
+    display: none;
+}

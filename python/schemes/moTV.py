@@ -1,4 +1,7 @@
 payload = loadBody("json")
-payload['rawLicense'] = getChallenge('b64')
-licence = await corsFetch(licUrl, "POST", licHeaders, payload, "json")
-licence = licence['rawLicense']
+
+b64challenge = base64.b64encode(challenge).decode()
+payload['rawLicense'] = b64challenge
+
+res = await corsFetch(licUrl, "POST", licHeaders, payload, "json")
+licence = res['rawLicense']

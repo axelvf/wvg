@@ -1,16 +1,13 @@
 import re
-
-
 def replaceRequest(payload):
-    challenge_blob = getChallenge('blob')
-    challengeB64 = getChallenge('b64')
-    challengeArr = str(getChallenge('list'))
+    challengeB64 = base64.b64encode(challenge).decode()
+    challengeArr = str(list(challenge))
 
     # Trying decode payload, challenge might be raw bytes if it failed
     try:
         decodedPayload = payload.decode()
     except:
-        return challenge_blob
+        return challenge
 
     # Challenge might be JSON/XML stored B64-encoded string
     replaced = decodedPayload.replace(r"(?<=(\"|\'|>))CAES.*?(?=(\"|\'|<))", challengeB64).replace(r"(?<=(\"|\'|>))CAQ=(?=(\"|\'|<))", challengeB64)
@@ -57,5 +54,6 @@ def findLicense(response):
 
 payload = loadBody("blob")
 payload = replaceRequest(payload)
+
 response = await corsFetch(licUrl, "POST", licHeaders, payload, "blob")
 licence = findLicense(response)
